@@ -24,4 +24,96 @@
 
    [^技巧]: 方法2我们可以使用伪元素为父级添加子元素
 
-   
+   ### flex布局
+
+   #### 父级属性
+
+   - display
+
+     设置父级为flex布局盒子
+
+     ```css
+     parent: {
+         display: flex;
+     }
+     ```
+
+   - flex-direction
+
+     主轴方向，即设置子集的排列方向
+
+     ```css
+     parent: {
+         flex-direction: row;            /* 主轴为水平方向，从左向右排列(→) */
+         flex-direction: row-reverse;    /* 主轴为水平方向，从右向左排列(←) */
+         flex-direction: column;         /* 主轴为垂直方向，从上向下排列(↓) */
+         flex-direction: column-reverse; /* 主轴为垂直方向，从下向上排列(↑) */
+     }
+     ```
+
+   - flex-wrap
+
+     定义子集再一行排不下时是否换行
+
+     ```css
+     parent: {
+         flex-wrap: nowrap;       /* 不换行(默认) */
+         flex-wrap: wrap;         /* 换行 */
+         flex-wrap: wrap-reverse; /* 换行，但是从下往上排列 */
+     }
+     ```
+
+   - flex-flow
+
+     flex-direction和flex-wrap的简写
+
+     ```css
+     .parent{
+         flex-flow: <flex-direction> <flex-wrap>;
+     }
+     ```
+
+   - justify-content
+
+     子集在主轴方向上的排列方式
+
+     ```css
+     .parent{
+         justify-content: flex-start;    /* 紧贴主轴的起点依次排列 */
+         justify-content: flex-end;      /* 紧贴主轴的终点依次排列 */
+         justify-content: center;        /* 剧中排列 */
+         justify-content: space-between; /* 紧贴主轴的两端均匀分布 */
+         justify-content: space-around;  /* 子集两边的间隔相等 */
+     }
+     ```
+
+   - align-items
+
+     子集在交叉轴方向上的对齐方式
+
+     ```css
+     .parent{
+         align-items: flex-start;  /* 和交叉轴的起点对齐 */
+         align-items: flex-end;    /* 和交叉轴的终点对齐 */
+         align-items: center;      /* 和交叉轴的中点对齐 */
+         align-items: baseline;    /* 和第一行文字的基线对齐 */
+         align-items: stretch;     /* 子集未设置高度的话，会被拉成和父级的高度一样 */
+     }
+     ```
+
+   - align-content
+
+     多根轴线的对齐方式
+
+     ```css
+     .parent{
+         align-content: flex-start;    /* 和交叉轴的起点对齐 */
+         align-content: flex-end;      /* 和交叉轴的终点对齐 */
+         align-content: center;        /* 和交叉轴的中点对齐 */
+         align-content: space-between; /* 和交叉轴两端对齐 */
+         align-content: space-around;  /* 轴线两侧的间隔相等 */
+         align-content: stretch;       /* 轴线占满整个父级的高度 */
+     }
+     ```
+
+     
