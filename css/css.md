@@ -116,4 +116,34 @@
      }
      ```
 
-     
+     #### 子集属性
+
+     - order
+
+       子集的排列顺序，数值越小排列越靠前。
+
+     - flex-grow
+
+       子集放大的比例。用当前子集的flew-grow除以所有子集的flex-grow之和就是当前子集的放大比例。默认为0。
+
+     - flex-shrink
+
+       子集的缩小比例，用当前子集的flew-shrink除以所有子集的flex-shrink之和就是当前子集的缩小比例。默认为0。
+
+     - flex-basis
+
+       定义在分配多余空间之前，子集占据的主轴空间，默认值为auto，可以向width和height一样设置固定值。
+
+     - flex
+
+       flex-grow，flex-shrink和flex-basis的简写
+
+       ```css
+       .child{
+           flex: <flex-grow> <flex-shrink> <flex-basis>;
+       }
+       ```
+
+     - align-self
+
+       定义子集的对齐方式，会覆盖父级的align-items属性
