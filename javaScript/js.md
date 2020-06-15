@@ -226,5 +226,36 @@ Function.prototype.simBind = function(thisArg, ...args){
    
    ```
 
-   
+
+### 实现一个防抖函数(debounce)
+
+防抖函数是将时间间隔较短得一组操作归并为一个操作
+
+```javascript
+function debounce(func, delay){
+    let timer = null;
+    return function(){
+        timer&&clearTimeout(timer);
+        timer = setTimeout(func, delay)
+    }
+}
+```
+
+### 实现一个节流函数
+
+节流函数是让函数以均匀得时间间隔执行
+
+```javascript
+function throttle(func, delay){
+    let canRun = true
+    return function(){
+        if(!canRun){return}
+        canRun = false;
+        setTimeout(function(){
+            func();
+            canRun = true
+        })
+    }
+}
+```
 
