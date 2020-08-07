@@ -264,7 +264,7 @@ function throttle(func, delay){
 ```javascript
 let arr = [1, 2, [3, 4]]
 
-// 暴力拆解
+// 暴力递归拆解
 function flat(arr){
     let res = [];
     function f(a){
@@ -278,6 +278,20 @@ function flat(arr){
        } 
     }
     f(arr)
+}
+
+// 迭代
+function flat(arr){
+    let flatArr = [];
+    while(arr.length>0){
+        let item = arr.shift(); // 拿到数组的第一个item
+        if( Array.isArray(item) ){ // 如果是个数组，则将其拆解放到数组的前端
+            arr.unshift(...item)
+        }else{ // 如果不是数组则直接推到新数组中
+            flatArr.push(item)
+        }
+    }
+    return flatArr
 }
 
 // 利用数组的toString方法和字符串的split方法
