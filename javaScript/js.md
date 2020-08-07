@@ -259,3 +259,35 @@ function throttle(func, delay){
 }
 ```
 
+### 数组的扁平化
+
+```javascript
+let arr = [1, 2, [3, 4]]
+
+// 暴力拆解
+function flat(arr){
+    let res = [];
+    function f(a){
+       for(let i=0; i<a.length; i++){
+           let item = a[i];
+           if( Array.isArray(item) ){
+               f(item)
+           }else{
+               res.push(item)
+           }
+       } 
+    }
+    f(arr)
+}
+
+// 利用数组的toString方法和字符串的split方法
+arr.toString().split(",")
+
+// 利用es6数组的flat方法
+// flat方法接收一个参数表示要拉平的层数
+// 1 默认值，只拉平一层
+// num 拉平num层
+// Infinity 拉平无限层
+let newArr = arr.flat(Infinity)
+```
+
