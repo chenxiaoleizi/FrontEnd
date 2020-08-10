@@ -305,3 +305,19 @@ arr.toString().split(",")
 let newArr = arr.flat(Infinity)
 ```
 
+### 改造for循环的代码
+
+```javascript
+// 改造代码使其输出0 1 2 3 4
+for(var i=0; i<5; i++){
+    setTimeout(function(){
+        console.log(i)
+    }, 1000)
+}
+// 5 5 5 5 5
+
+// 1. 用let代替for循环中的var
+// 2. 给定时器外面包一层自执行函数，并将i传给这个自执行函数(闭包原理)
+// 3. 定时器的第三个参数会传递给定时器的回调函数
+```
+
