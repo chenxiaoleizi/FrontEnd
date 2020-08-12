@@ -321,3 +321,32 @@ for(var i=0; i<5; i++){
 // 3. 定时器的第三个参数会传递给定时器的回调函数
 ```
 
+### 求两个数组的交集
+
+```javascript
+let arr1 = [1, 2, 2, 1];
+let arr2 = [2, 3];
+function intersection(nums1, nums2){
+    // 创建一个map来存储nums1中的项
+    let map = {};
+    let res = [];
+    // 遍历nums1，将nums1的项以k的方式存在map中
+    for(let i=0; i<nums1.length; i++){
+        let item = nums1[i];
+        // 不存在则新加k
+        if( !map.hasOwnProperty(item) ){
+            map[item] = item
+        }
+    }
+    for(let i=0; i<nums2.length; i++){
+        let item = nums2[i];
+        // 如果存在，说明当前的item是交集
+        if( map.hasOwnProperty(item) ){
+            res.push(item)
+            // 删除k，因为后面可能会出现重复的k
+            delete map[item]
+        }
+    }
+}
+```
+
