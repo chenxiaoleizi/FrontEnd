@@ -8,6 +8,45 @@
 6. Object
 7. Symbol(es6新增)
 
+-    变量已经定义，但是未赋值会自动获得undefined值
+
+  ```javascript
+  let a;
+  console.log(a) // undefined
+  
+  function fun(a){
+      console.log(a)
+  }
+  fun() // 这里由于并没有给函数传参，所以变量a没有被复制，所以是undefined
+  ```
+
+- 使用typeof操作符来检测null时，返回的是object
+
+### 检测数据类型的一些方法
+
+1. typeof操作符。适合用于检测undefined，number，boolean，string，function，symbol。
+
+2. Array.isArray方法检测数组。
+
+3. instanceof操作符适合检测引用类型，instanceof的右侧必须是对象(构造函数)
+
+4. 利用对象原型上的toString方法
+
+   ```
+   Object.prototype.toString.call();
+   // [object Undefined]     undefined
+   // [object Null]          null
+   // [object String]        字符串
+   // [object Number]        数字
+   // [object Boolean]       布尔值
+   // [object Array]         数组
+   // [object Function]      函数
+   // [object Object]        对象
+   // [object Symbol]        symbol
+   ```
+
+   
+
 ### this指向问题
 
 1. 全局作用域中的this永远指向window。
