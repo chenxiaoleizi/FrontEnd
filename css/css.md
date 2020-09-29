@@ -160,3 +160,49 @@
      - align-self
 
        定义子集的对齐方式，会覆盖父级的align-items属性
+
+### 使用CSS创建三角形
+
+​	原理是使用border来模拟三角形
+
+​	我们先给四个边的border不同的颜色，看一下border到底是什么样。
+
+```css
+.varied-border {
+    width: 100px;
+    height: 100px;
+    border-color: orange skyblue red green;
+    border-width: 50px;
+    border-style: solid;
+}
+
+```
+
+![](..\image\image-20200929201438090.png)
+
+再将元素的宽高设为0
+
+```css
+.varied-border {
+    width: 0;
+    height: 0;
+    border-color: orange skyblue red green;
+    border-width: 50px;
+    border-style: solid;
+}
+```
+
+![image-20200929202629753](..\image\image-20200929202629753.png)
+
+可以发现每个边单独的border就是一个三角形，如果我们想要一个向上的红色三角形，只要把左上右三边的border颜色设为transparent就行了，其方向类推。
+
+```css
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-color: transparent transparent red transparent;
+    border-width: 50px;
+    border-style: solid;
+}
+```
+
