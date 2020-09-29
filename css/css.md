@@ -178,7 +178,7 @@
 
 ```
 
-![](..\image\image-20200929201438090.png)
+![](https://github.com/chenxiaoleizi/FrontEnd/blob/master/image/image-20200929201438090.png)
 
 再将元素的宽高设为0
 
@@ -192,7 +192,7 @@
 }
 ```
 
-![image-20200929202629753](..\image\image-20200929202629753.png)
+![](https://github.com/chenxiaoleizi/FrontEnd/blob/master/image/image-20200929202629753.png)
 
 可以发现每个边单独的border就是一个三角形，如果我们想要一个向上的红色三角形，只要把左上右三边的border颜色设为transparent就行了，其方向类推。
 
