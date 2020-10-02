@@ -221,7 +221,7 @@ Function.prototype.simBind = function(thisArg, ...args){
 
 5. 寄生式继承
 
-   ```
+   ```javascript
    // 只是在原型式继承的基础上对新的对象进行增强
    // 产生一个继承o的对象
    function inherit(o){
