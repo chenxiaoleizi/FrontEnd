@@ -97,11 +97,11 @@
 call方法将改变函数的this指向，思路是利用上面this指向说的谁调用这个函数，this就指向谁。
 
 ```javascript
-Function.prototype.simCall = function(thisArg, ...args){
+Function.prototype.simCall = function(context, ...args){
     // 由于我们用需要绑定this的函数来调用simCall方法，所以simCall方法中的this指向的就是我们的函数
-    thisArg.func = this; 
-    let res = thisArg.func(...args);
-    delete thisArg.func;
+    context.fn = this; 
+    let res = context.fn(...args);
+    delete context.fn;
     return res
 }
 ```
@@ -111,10 +111,13 @@ Function.prototype.simCall = function(thisArg, ...args){
 apply方法原理与call一样，只是传参不同
 
 ```javascript
-Function.prototype.simCall = function(thisArg, args){ // args是一个数组
-    thisArg.func = this; 
-    let res = thisArg.func(...args);
-    delete thisArg.func;
+Function.prototype.simCall = function(context, args){ // args是一个数组
+    if (Array.isArray(context)) {
+        throw new Error("CreateListFromArrayLike called on non-object")
+    }
+    context.fn = this; 
+    let res = context.fn(...args);
+    delete context.fn;
     return res
 }
 ```
@@ -124,12 +127,11 @@ Function.prototype.simCall = function(thisArg, args){ // args是一个数组
 bind方法除了会绑定函数的this，还会返回一个新的函数
 
 ```javascript
-Function.prototype.simBind = function(thisArg, ...args){
-    let func = this;
+Function.prototype.simBind = function(context, ...args){
+    context.fn = this;
     return function(){
-        thisArg.func = this; 
-        let res = thisArg.func(...args);
-        delete thisArg.func;
+        let res = context.fn(...args);
+        delete context.fn;
         return res
     }
 }
