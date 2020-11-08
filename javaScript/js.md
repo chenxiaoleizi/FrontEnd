@@ -273,11 +273,28 @@ Function.prototype.simBind = function(context, ...args){
 防抖函数是将时间间隔较短得一组操作归并为一个操作
 
 ```javascript
-function debounce(func, delay){
+// 基础版本
+function debounce(fn, time){
     let timer = null;
-    return function(){
+    return function(...args){
         timer&&clearTimeout(timer);
-        timer = setTimeout(func, delay)
+        timer = setTimeout(() => {
+            fn.apply(this, args)
+        }, time)
+    }
+}
+
+// 添加立即执行功能
+function debounce1(fn, time, immediate){
+    let timer = null;
+    return function (...args){
+        timer&&clearTimeout(timer)
+        if (immediate && !timer) {
+            fn.apply(this, args)
+        }
+        timer = setTimeout(() => {
+            fn.apply(this, args)
+        }, time)
     }
 }
 ```
