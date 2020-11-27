@@ -184,7 +184,7 @@ Function.prototype.simBind = function(context, ...args){
    let subInstance = new Sub()
    ```
 
-   缺点  属性和方法都定义在父类的构造函数中，每个子类的实例都有自己的func方法，导致func方法无法复用
+   缺点  属性和方法都定义在父类的构造函数中，每个子类的实例都有自己的函数，导致函数无法复用。并且子类也不能访问父类原型上定义的方法。
 
 3. 组合继承
 
@@ -200,7 +200,7 @@ Function.prototype.simBind = function(context, ...args){
        // 调用父类构造函数来继承父类构造函数中的属性(第二次调用)
        Super.call(this, ...args)   
    };
-   sub.prototype= new Super(); // 用原型链来继承父类原型上的方法(第一次调用)
+   Sub.prototype= new Super(); // 用原型链来继承父类原型上的方法(第一次调用)
    
    let subInstance = new Sub()
    ```
