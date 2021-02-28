@@ -56,6 +56,7 @@
    - 箭头函数中的this和外层作用域中的this指向相同。
 3. 构造函数中的this指向实例。
 4. 调用call，apply和bind方法的函数，this会指向绑定的上下文。
+5. 事件回调函数中的this指向dom
 
 ### 普通函数和箭头函数的区别
 
@@ -141,6 +142,8 @@ Function.prototype.simBind = function(context, ...args){
 
 1. 原型链继承
 
+   **将子类构造函数的 prototype 设置为父类的实例。**
+
    ```javascript
    function Super(){ // 父类
        this.arr = ['1', '2', '3']   // 引用类型会被共享
@@ -164,9 +167,11 @@ Function.prototype.simBind = function(context, ...args){
      Object.prototype.isPrototypeOf(instance) // true
      ```
 
-   缺点  1.父类实例中的引用类型属性会被子类所有实例共享 2. 实例化子类的时候不能向父类的构造函数传参。
+   缺点  1.原型（父类实例）中引用类型的值会被子类所有实例共享 2. 实例化子类的时候不能向父类的构造函数传参。
 
 2. 借助构造函数继承
+
+   **在子类构造函数中使用 call 或者 apply 方法调用父类构造函数。**
 
    借用构造函数来继承可以解决引用类型的问题，也可以在实例化子类时向父类构造函数传参。
 
@@ -184,15 +189,19 @@ Function.prototype.simBind = function(context, ...args){
    let subInstance = new Sub()
    ```
 
-   缺点  属性和方法都定义在父类的构造函数中，每个子类的实例都有自己的func方法，导致func方法无法复用
+   缺点 1.父类原型上的属性和方法子类无法使用  2. 方法都定义在父类的构造函数中，每个子类的实例都在实例化时都会生成自己的函数，导致函数无法复用
 
 3. 组合继承
 
-   组合继承指的是结合使用**原型链继承**和**构造函数继承**，发挥两者之长。
+   **结合使用原型链继承和构造函数继承，发挥两者之长。**
+
+   将方法定义在父类的原型上，将属性定义在父类构造函数中。
 
    ```javascript
    function Super(){ // 父类
-       this.arr = ['1', '2', '3'] // 属性在构造函数中定义
+       // 属性在构造函数中定义
+       this.name = "super"
+       this.arr = ['1', '2', '3']
    };
    Super.prototype.func = function(){}; // 方法在原型上定义
    
@@ -205,9 +214,11 @@ Function.prototype.simBind = function(context, ...args){
    let subInstance = new Sub()
    ```
 
-   缺点  需要调用两次父类构造函数
+   缺点  1.需要调用两次父类构造函数
 
 4. 原型式继承
+
+   **直接将一个对象设为构造函数的原型，返回这个构造函数的一个实例。**
 
    ```javascript
    // 产生一个继承o的对象
@@ -222,6 +233,8 @@ Function.prototype.simBind = function(context, ...args){
    ```
 
 5. 寄生式继承
+
+   **在原型式继承的基础上，给返回的实例添加属性和方法。**
 
    ```javascript
    // 只是在原型式继承的基础上对新的对象进行增强
