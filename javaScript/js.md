@@ -145,6 +145,53 @@ Function.prototype.simBind = function(context, ...args){
 }
 ```
 
+
+
+### 如何实现深复制
+
+```javascript
+function clone(o) {
+    let toString = Object.prototype.toString;
+    if (toString.call(o) === "[object Array]") {
+        return []
+    }
+    if (toString.call(o) === "[object Object]") {
+        return {}
+    }
+    return o
+}
+function deepClone(origin){
+    let stack = [];
+    let map = new Map();
+    
+    let target = clone(origin);
+    if (target !== origin) {
+        stack.push([origin, target]);
+        map.set(origin, target)
+    }
+    
+    while (stack.length > 0) {
+        let [ori, tar] = stack.pop();
+        for (let k in ori) {
+            
+            // 防止循环引用
+            if (map.has(ori[k])) {
+                tar[k] = map.get(ori[k])
+                continue
+            }
+            
+            tar[k] = clone(ori[k]);
+            if (tar[k] !== ori[k]) {
+                stack.push([ori[k], tar[k]]);
+                map.set(ori[k], tar[k])
+            }
+        }
+    }
+}
+```
+
+
+
 ### javaScript如何实现继承
 
 1. 原型链继承
