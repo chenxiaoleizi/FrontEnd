@@ -21,3 +21,10 @@
 1. require的是一个值的拷贝，import的是值的引用
 2. require是运行时处理，import是编译时处理
 3. require是同步加载模块，import是异步加载(独立的模块依赖解析过程)
+
+### webpack 优化
+
+1. 减少 loader 的使用，多一个 loader 就会多一次转换。
+2. 多线程 `thread-loader`
+3. 利用缓存
+4. 缩小构件目标
