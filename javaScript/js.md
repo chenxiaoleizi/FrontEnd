@@ -192,6 +192,19 @@ function deepClone(origin){
 
 
 
+### instanceof 原理
+
+左侧实例的原型链上是否存在右侧构造函数的原型
+
+```javascript
+function A(){}
+let a = new A();
+
+console.log( a instanceof A ) // a 的原型链上存在 A 的原型，即 a.__proto__ === A.prototype
+```
+
+
+
 ### javaScript如何实现继承
 
 1. 原型链继承
