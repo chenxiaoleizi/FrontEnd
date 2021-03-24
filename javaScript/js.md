@@ -525,3 +525,25 @@ function curry(originalFn) {
 }
 ```
 
+### 高阶函数
+
+Higher-order function，
+
+满足一下条件的任意一条即为高阶函数
+
+1. 接受一个或多个函数作为参数
+2. 输出一个函数
+
+数组的 map, forEach, filter 等。
+
+封装判断类型的函数
+
+```javascript
+function isType(type) {
+    return function(obj) {
+        return Object.prototype.toString.call(obj) === "[object "+type+"]"
+    }
+}
+isType("String")("123")
+```
+
