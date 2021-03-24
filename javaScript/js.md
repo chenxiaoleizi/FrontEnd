@@ -500,3 +500,28 @@ parseFloat只解析十进制的数字
 区别在于，遇到第一个小数点符号会继续往后解析，知道再次遇到非数字符号才停止解析
 
 会忽略前导的0，不会像parseInt那样解析十六进制数字
+
+
+
+### 柯里化函数
+
+将一个函数转换成可以多次传参的函数，并且在传入的参数数量小于原始函数的参数的数量时，会返回新的函数
+
+```javascript
+function curry(originalFn) {
+
+  return function curriedFn(...args) {
+    
+    if (args.length < originalFn.length) {
+
+      return function(...args1) {
+        return curriedFn.apply(this, args.concat(args1));
+      }
+
+    }else {
+      return originalFn.apply(this, args);
+    }
+  }
+}
+```
+
