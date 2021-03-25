@@ -516,6 +516,29 @@ parseFloat只解析十进制的数字
 
 
 
+### 0.1 + 0.2 === 0.3 问题
+
+进制转换和对阶运算导致精度丢失。
+
+解决方法
+
+```javascript
+// 将小数转换成整数进行运算
+function add(num1, num2) {
+    // 确定小数部分的长度
+    let fractionLength1 = (num1.toString().split(".")[1] || "").length;
+    let fractionLength2 = (num2.toString().split(".")[1] || "").length;
+    
+    let scalar = Math.pow(10, Math.max(fractionLength1, fractionLength2))
+    
+    return (num1 * scalar + num2 * scalar) / scalar
+}
+
+// 使用第三方库 mathjs 和 big.js
+```
+
+
+
 ### 柯里化函数
 
 将一个函数转换成可以多次传参的函数，并且在传入的参数数量小于原始函数的参数的数量时，会返回新的函数
