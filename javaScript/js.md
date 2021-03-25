@@ -537,6 +537,15 @@ function add(num1, num2) {
 // 使用第三方库 mathjs 和 big.js
 ```
 
+### NaN 特点
+
+NaN 是 not a number 的意思
+
+```javascript
+typeof NaN   // "number"
+NaN === NaN  // false
+```
+
 
 
 ### 柯里化函数
