@@ -78,3 +78,49 @@ Cache-Control 有多个选项
 Last-Modified 是一个绝对时间戳，`Last-Modified: Fri, 27 Oct 2017 06:35:57 GMT`，服务器响应资源的请求时，会在 Response Header 中写入 `Last-Modified`。后面每次请求的请求头中会加上 `If-Modified-Since` 字段，也就是上一次服务器响应时 `Last-Modified`的值。服务器会将资源的最后修改时间和 `If-Modified-Since` 做对比，如果一致说明资源未改动，返回`304`状态码，告诉浏览器使用浏览器缓存。如果不一致说明资源发生改动，则返回新的资源和新的 `Last-Modified`。
 
 Etag 是基于文件内容编码生成的标识的字符串，`ETag: W/"2a3b-1602480f459"`。服务器响应资源的请求时，会在 Response Header 中写入 `Etag`。后面每次请求的请求头中会加上 `If-None-Match` 字段，也就是上一次服务器响应时 `Etag`的值。服务器会将当前文件 `Etag` 和 `If-None_Match`做对比来确认资源是否发生了改动。
+
+### 同源策略
+
+同源策略会限制两个不同源页面之间的 DOM 操作，数据获取（cookie, localStorage, indexDB）和网络请求（XMLHttpRequest）
+
+[同源策略](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)
+
+### 跨域
+
+1. CORS 跨域
+2. 代理（webpack-dev-server）
+3. JSONP
+4. Websocket
+5. window.postMessage
+
+### CORS 跨域
+
+#### 响应头设置
+
+1. `Access-Control-Allow-Origin`
+2. `Access-Control-Allow-Credentials`
+3. `Access-Control-Allow-Headers`
+
+#### 简单请求和非简单请求
+
+同时满足以下要求则为简单请求，否侧为非简单请求
+
+1. 请求方法为下列方法之一
+   - GET
+   - HEAD
+   - POST
+2. 头部信息不能是一下之外的
+   - Accept
+   - Accept-Language
+   - Content-Language
+   - Content-Type
+3. Content-Type 为一下三种之一
+   - text/plan
+   - multipart/form-data
+   - application/x-www-form-urlencoded
+
+如果是非简单请求，浏览器会先发出一个预检(preflight)请求，预检请求的方式为 OPTIONS
+
+[mdn](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
+
+[软一峰 CORS](http://www.ruanyifeng.com/blog/2016/04/cors.html)
