@@ -1,3 +1,12 @@
+### HTTP常用的请求方式
+
+1. GET
+2. HEAD
+3. POST
+4. PUT
+5. DELETE
+6. OPTIONS ( 预检请求 )
+
 ### HTTP报文的组成
 
 ### HTTP三次握手
