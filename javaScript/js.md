@@ -45,6 +45,41 @@
    // [object Symbol]        symbol
    ```
 
+### 类型转换
+
+**显示类型转换( explicit conversion )**
+
+调用内置的方法转换数据的类型 String(), Number(), Boolean()
+
+**隐式类型转换( implicit conversion )**
+
+当遇到 `-`， `*`,  `/`,  `%`类型转换的规则和显示类型转换差不多，但是 `+` 操作符的规则较为复杂。当 `+` 操作符做左右两侧有一个为字符串时，就会将另一个也转换成字符串。
+
+```javascript
+12 + ""    //Output is "12" as number 12 is converted to string "12"
+
+"15" * 2    //Output is 30 as string 15 is converted to number 15
+
+"15" - "11" //Output is 4 as both the strings are converted to number
+
+undefined + 6 //Output is NaN as undefined could not be converted to number
+
+"Hello" + null  //Output is "Hellonull" as null is converted to string "null"
+
+null + 25     //Output is 25 as null is converted to 0.
+
+true + true //Output is 2 as true is converted to number 1.
+
+false + 10 //Output is 10 as false is converted to number 0.
+
+10 * [6] //Output is 60 as [6] is converted to number 6.
+
+10 * [10, 20] //Output is NaN as [10, 20] could not be converted to number
+
+[1] + [1,2] //Output is "11,2" as [1] is converted to "1" and [1,2] is converted "1,2". Finally the two are concatenated to give the result "11,2"
+```
+
+[type conversion](https://betterprogramming.pub/implicit-and-explicit-coercion-in-javascript-b23d0cb1a750)
 
 ### JavaScript内存
 
@@ -98,7 +133,32 @@ JavaScript 在解析阶段会预扫描内部函数，如果内部函数引用了
    console.log( normalFunc.arrowFunc ); // undefined
    ```
 
-   
+
+
+
+### 模拟实现 new
+
+new 关键字会进行如下操作
+
+1. 创建一个新的空的简单 Javascript 对象（即{}）
+2. 将新对象的 `__proto__`设置为构造函数的 `prototype`
+3. 构造函数内部的this指向上面的新对象
+4. 如果构造函数显示的返回一个对象，则得到的是显示返回的这个对象，否则返回上面的新对象（如果构造函数显示返回的不是一个对象，比如数字或者字符串，则还是会返回上面的新对象）
+
+```javascript
+// 模拟实现 new
+function simNew(constr, ...args) {
+    let obj = {};
+    
+    obj.__proto__ = constr.constructor;
+    
+    let res = constr.apply(obj, args);
+    
+    return ( (typeof res === "onject" || typeof res === "function") && res !== null )? res:obj
+}
+```
+
+
 
 ### 如何实现函数的call方法
 
@@ -144,6 +204,66 @@ Function.prototype.simBind = function(context, ...args){
     }
 }
 ```
+
+
+
+### 如何实现深复制
+
+```javascript
+function clone(o) {
+    let toString = Object.prototype.toString;
+    if (toString.call(o) === "[object Array]") {
+        return []
+    }
+    if (toString.call(o) === "[object Object]") {
+        return {}
+    }
+    return o
+}
+function deepClone(origin){
+    let stack = [];
+    let map = new Map();
+    
+    let target = clone(origin);
+    if (target !== origin) {
+        stack.push([origin, target]);
+        map.set(origin, target)
+    }
+    
+    while (stack.length > 0) {
+        let [ori, tar] = stack.pop();
+        for (let k in ori) {
+            
+            // 防止循环引用
+            if (map.has(ori[k])) {
+                tar[k] = map.get(ori[k])
+                continue
+            }
+            
+            tar[k] = clone(ori[k]);
+            if (tar[k] !== ori[k]) {
+                stack.push([ori[k], tar[k]]);
+                map.set(ori[k], tar[k])
+            }
+        }
+    }
+}
+```
+
+
+
+### instanceof 原理
+
+左侧实例的原型链上是否存在右侧构造函数的原型
+
+```javascript
+function A(){}
+let a = new A();
+
+console.log( a instanceof A ) // a 的原型链上存在 A 的原型，即 a.__proto__ === A.prototype
+```
+
+
 
 ### javaScript如何实现继承
 
@@ -453,3 +573,82 @@ parseFloat只解析十进制的数字
 区别在于，遇到第一个小数点符号会继续往后解析，知道再次遇到非数字符号才停止解析
 
 会忽略前导的0，不会像parseInt那样解析十六进制数字
+
+
+
+### 0.1 + 0.2 === 0.3 问题
+
+进制转换和对阶运算导致精度丢失。
+
+解决方法
+
+```javascript
+// 将小数转换成整数进行运算
+function add(num1, num2) {
+    // 确定小数部分的长度
+    let fractionLength1 = (num1.toString().split(".")[1] || "").length;
+    let fractionLength2 = (num2.toString().split(".")[1] || "").length;
+    
+    let scalar = Math.pow(10, Math.max(fractionLength1, fractionLength2))
+    
+    return (num1 * scalar + num2 * scalar) / scalar
+}
+
+// 使用第三方库 mathjs 和 big.js
+```
+
+### NaN 特点
+
+NaN 是 not a number 的意思
+
+```javascript
+typeof NaN   // "number"
+NaN === NaN  // false
+```
+
+
+
+### 柯里化函数
+
+将一个函数转换成可以多次传参的函数，并且在传入的参数数量小于原始函数的参数的数量时，会返回新的函数
+
+```javascript
+function curry(originalFn) {
+
+  return function curriedFn(...args) {
+    
+    if (args.length < originalFn.length) {
+
+      return function(...args1) {
+        return curriedFn.apply(this, args.concat(args1));
+      }
+
+    }else {
+      return originalFn.apply(this, args);
+    }
+  }
+}
+```
+
+### 高阶函数
+
+Higher-order function，
+
+满足一下条件的任意一条即为高阶函数
+
+1. 接受一个或多个函数作为参数
+2. 输出一个函数
+
+数组的 map, forEach, filter 等。
+
+封装判断类型的函数
+
+```javascript
+function isType(type) {
+    return function(obj) {
+        return Object.prototype.toString.call(obj) === "[object "+type+"]"
+    }
+}
+isType("String")("123")
+```
+
