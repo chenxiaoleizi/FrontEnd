@@ -21,3 +21,16 @@
 1. require的是一个值的拷贝，import的是值的引用
 2. require是运行时处理，import是编译时处理
 3. require是同步加载模块，import是异步加载(独立的模块依赖解析过程)
+
+### webpack 优化
+
+1. 多进程（thread-loader）
+2. 并行压缩，terserWebpackPlugin 的 `parallel: true`选项
+3. 预编译分包 DLLPlugin
+4. 使用缓存，加速二次构建的速度
+   - babel-loader 开启缓存  `babel-loader?cacheDirectory=true` （转换的js较少时效果不明显）
+   - terser-webpack-plugin 开启缓存 `cache: true`
+5. 缩小构建目标，配置 resolve 选项
+   - alias  指定常用模块的查找路径
+   - extensions  减少数量
+   - 
