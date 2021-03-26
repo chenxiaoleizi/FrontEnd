@@ -45,6 +45,41 @@
    // [object Symbol]        symbol
    ```
 
+### 类型转换
+
+**显示类型转换( explicit conversion )**
+
+调用内置的方法转换数据的类型 String(), Number(), Boolean()
+
+**隐式类型转换( implicit conversion )**
+
+当遇到 `-`， `*`,  `/`,  `%`类型转换的规则和显示类型转换差不多，但是 `+` 操作符的规则较为复杂。当 `+` 操作符做左右两侧有一个为字符串时，就会将另一个也转换成字符串。
+
+```javascript
+12 + ""    //Output is "12" as number 12 is converted to string "12"
+
+"15" * 2    //Output is 30 as string 15 is converted to number 15
+
+"15" - "11" //Output is 4 as both the strings are converted to number
+
+undefined + 6 //Output is NaN as undefined could not be converted to number
+
+"Hello" + null  //Output is "Hellonull" as null is converted to string "null"
+
+null + 25     //Output is 25 as null is converted to 0.
+
+true + true //Output is 2 as true is converted to number 1.
+
+false + 10 //Output is 10 as false is converted to number 0.
+
+10 * [6] //Output is 60 as [6] is converted to number 6.
+
+10 * [10, 20] //Output is NaN as [10, 20] could not be converted to number
+
+[1] + [1,2] //Output is "11,2" as [1] is converted to "1" and [1,2] is converted "1,2". Finally the two are concatenated to give the result "11,2"
+```
+
+[type conversion](https://betterprogramming.pub/implicit-and-explicit-coercion-in-javascript-b23d0cb1a750)
 
 ### JavaScript内存
 
