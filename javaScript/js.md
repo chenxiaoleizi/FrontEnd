@@ -613,6 +613,7 @@ NaN === NaN  // false
 将一个函数转换成可以多次传参的函数，并且在传入的参数数量小于原始函数的参数的数量时，会返回新的函数
 
 ```javascript
+// 实现 1
 function curry(originalFn) {
 
   return function curriedFn(...args) {
@@ -627,6 +628,20 @@ function curry(originalFn) {
       return originalFn.apply(this, args);
     }
   }
+}
+
+// 实现 2
+function curry(fn) {
+    let allArgs = [];
+    function curried(...args) {
+        allArgs = allArgs.concat(args);
+        if (allArgs.length >= fn.length) {
+            return fn.apply(this, allArgs)
+        } else {
+            return curried
+        }
+    }
+    return curried
 }
 ```
 
