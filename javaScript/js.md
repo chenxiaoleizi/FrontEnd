@@ -98,7 +98,32 @@ JavaScript 在解析阶段会预扫描内部函数，如果内部函数引用了
    console.log( normalFunc.arrowFunc ); // undefined
    ```
 
-   
+
+
+
+### 模拟实现 new
+
+new 关键字会进行如下操作
+
+1. 创建一个新的空的简单 Javascript 对象（即{}）
+2. 将新对象的 `__proto__`设置为构造函数的 `prototype`
+3. 构造函数内部的this指向上面的新对象
+4. 如果构造函数显示的返回一个对象，则得到的是显示返回的这个对象，否则返回上面的新对象（如果构造函数显示返回的不是一个对象，比如数字或者字符串，则还是会返回上面的新对象）
+
+```javascript
+// 模拟实现 new
+function simNew(constr, ...args) {
+    let obj = {};
+    
+    obj.__proto__ = constr.constructor;
+    
+    let res = constr.apply(obj, args);
+    
+    return ( (typeof res === "onject" || typeof res === "function") && res !== null )? res:obj
+}
+```
+
+
 
 ### 如何实现函数的call方法
 
