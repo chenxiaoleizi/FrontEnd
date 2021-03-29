@@ -667,3 +667,8 @@ function isType(type) {
 isType("String")("123")
 ```
 
+### 类数组转数组
+
+1. `...` 运算符
+2. Array.from()
+3. Array.prototype.slice.apply()
