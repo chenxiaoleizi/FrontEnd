@@ -206,3 +206,22 @@
 }
 ```
 
+### 等宽高比
+
+```css
+.box {
+    width: 100px;
+    background: skyblue;
+}
+.box::before {
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+.box::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+```
+
