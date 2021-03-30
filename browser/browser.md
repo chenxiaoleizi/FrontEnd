@@ -57,3 +57,13 @@ defer 是延迟的意思，脚本会并行下载不影响DOM解析，等到 dom 
 
 async 是异步的意思，脚本会并行的下载不影响 DOM 的解析，但是一旦下载完成就会执行脚本。不会按照标签的顺序执行，只要下载完成就会执行。
 
+### Cookie
+
+cookie 常用属性
+
+1. Expires / Max-Age 生命周期
+2. Secure 限制访问 cookie，设置了该属性的 cookie 只有在 https 的情况下才会被请求携带
+3. HttpOnly 限制访问 cookie，设置了该属性的 cookie，浏览器无法通过 `document.cookie` 来访问
+4. SameSite 服务器要求某个 cookie 在跨站请求时不会被发送，有以下三种值
+   - None 浏览器在同站和跨站的情况下都发送 cookie
+   - Strict 浏览器在同站的情况下都发送 cookie
