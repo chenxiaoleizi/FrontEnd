@@ -166,6 +166,10 @@ call方法将改变函数的this指向，思路是利用上面this指向说的�
 
 ```javascript
 Function.prototype.simCall = function(context, ...args){
+    if (context === undefined || context === null) context = window
+    if (typeof context === "string") context = new String(context)
+    if (typeof context === "number") context = new Number(context)
+    if (typeof context === "boolean") context = new Boolean(context)
     // 由于我们用需要绑定this的函数来调用simCall方法，所以simCall方法中的this指向的就是我们的函数
     context.fn = this; 
     let res = context.fn(...args);
@@ -180,11 +184,16 @@ apply方法原理与call一样，只是传参不同
 
 ```javascript
 Function.prototype.simCall = function(context, args){ // args是一个数组
-    if (Array.isArray(context)) {
+    if (args && Array.isArray(args)) {
         throw new Error("CreateListFromArrayLike called on non-object")
     }
+    if (context === undefined || context === null) context = window
+    if (typeof context === "string") context = new String(context)
+    if (typeof context === "number") context = new Number(context)
+    if (typeof context === "boolean") context = new Boolean(context)
     context.fn = this; 
-    let res = context.fn(...args);
+    let realArgs = args || []
+    let res = context.fn(...realArgs);
     delete context.fn;
     return res
 }
