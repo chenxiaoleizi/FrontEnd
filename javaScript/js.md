@@ -205,12 +205,15 @@ bind方法除了会绑定函数的this，还会返回一个新的函数
 
 ```javascript
 Function.prototype.simBind = function(context, ...args){
-    context.fn = this;
-    return function(){
-        let res = context.fn(...args);
-        delete context.fn;
-        return res
+    let originFn = this
+
+    function fBound(...bindArgs) {
+        return originFn.apply( (this instanceof fBound)? this:context,  args.concat(bindArgs))
     }
+    let prototype = Object.create(originFn.prototype)
+    fBound.prototype = prototype
+
+    return fBound
 }
 ```
 
