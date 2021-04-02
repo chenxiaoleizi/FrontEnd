@@ -161,6 +161,18 @@
 
        定义子集的对齐方式，会覆盖父级的align-items属性
 
+
+
+### flex-shrink 计算规则
+
+```javascript
+A = 宽度*flexShrink + 宽度1*flexShrink1 + 宽度2*flexShrink2
+B = 宽度*flexShrink / A
+减小的宽度 = 宽度 - B*(子集总宽度 - 父级宽度)
+```
+
+
+
 ### 使用CSS创建三角形
 
 ​	原理是使用border来模拟三角形
