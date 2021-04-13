@@ -237,7 +237,7 @@ B = 宽度*flexShrink / A
 }
 ```
 
-### BFC
+### Block Formating Context
 
 BFC 可以看成页面中的一小块布局，触发 BFC 的元素会将它的**子集都包含在其中**。
 
@@ -248,3 +248,18 @@ BFC 可以看成页面中的一小块布局，触发 BFC 的元素会将它的**
 3. 包含浮动元素（清除浮动）
 4. 消除文字环绕
 5. 两栏布局（左侧固定宽度左浮动，右侧overflow:auto）
+
+
+
+### Stacking Context
+
+层叠上下文是指页面中的元素在垂直于屏幕方向产生的层级关系。
+
+如何创建层叠上下文
+
+1. html 元素自带根上下文
+2. z-index 值为数值的定位元素
+3. 其他 css 属性
+   - flex 布局的子元素
+   - opacity 属性值小于 1 的元素
+   - transform scale
