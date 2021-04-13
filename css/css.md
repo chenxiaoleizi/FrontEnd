@@ -263,3 +263,9 @@ BFC 可以看成页面中的一小块布局，触发 BFC 的元素会将它的**
    - flex 布局的子元素
    - opacity 属性值小于 1 的元素
    - transform scale
+
+### 优化 CSS
+
+1. 避免使用 @import
+2. 减少 CSS 嵌套
+3. 减少通配符的使用
