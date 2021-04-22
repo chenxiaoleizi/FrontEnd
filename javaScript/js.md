@@ -474,13 +474,17 @@ function debounce(fn, time){
 function debounce1(fn, time, immediate){
     let timer = null;
     return function (...args){
-        timer&&clearTimeout(timer)
-        if (immediate && !timer) {
-            fn.apply(this, args)
+        if (timer) clearTimeout(timer)
+        if (immediate) {
+            if (!timer) fn.apply(this, args);
+            timer = setTimeout(() => {
+                timer = null
+            }, time)
+        } else {
+            timer = setTimeout(() => {
+                fn.apply(this, args)
+            }, time)
         }
-        timer = setTimeout(() => {
-            fn.apply(this, args)
-        }, time)
     }
 }
 ```
@@ -499,6 +503,17 @@ function throttle(func, delay){
             func();
             canRun = true
         })
+    }
+}
+
+function throttle(fn, time) {
+    let prev = Date.now();
+    return function(...args) {
+        let current = Date.now();
+        if (current - prev > time) {
+            fn.apply(this, args);
+            prev = current
+        }
     }
 }
 ```
