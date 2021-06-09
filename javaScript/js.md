@@ -81,6 +81,8 @@ false + 10 //Output is 10 as false is converted to number 0.
 
 [type conversion](https://betterprogramming.pub/implicit-and-explicit-coercion-in-javascript-b23d0cb1a750)
 
+[what-you-need-to-know-about-javascripts-implicit-coercion](https://dev.to/promhize/what-you-need-to-know-about-javascripts-implicit-coercion-e23)
+
 ### JavaScript内存
 
 Javascript内存分为栈内存（存放基本类型和引用类型的指针）和堆内存（存放引用类型）。
