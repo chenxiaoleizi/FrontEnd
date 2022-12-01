@@ -278,6 +278,31 @@ function deepClone(origin){
         }
     }
 }
+
+// 递归
+function deepClone(obj) {
+    const map = new Map()
+
+    function clone(input) {
+        if (typeof input !== "object") {
+            return input
+        }
+
+        let output = Array.isArray(input) ? [] : {}
+        map.set(input, output)
+
+        for (let k in input) {
+            if (map.has(input[k])) {
+                output[k] = map.get(input[k])
+                continue
+            }
+
+            output[k] = clone(input[k])
+        }
+    }
+
+    return clone(obj)
+}
 ```
 
 
